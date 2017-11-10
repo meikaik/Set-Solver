@@ -53,3 +53,19 @@ def to_sym(rhs)
     return 'h'
   end
 end
+
+def valid_set?(combo1, combo2, combo3)
+  for i in 0..3 do
+    return false if Set.new([combo1[i],combo2[i],combo3[i]]).length == 2
+  end
+  return true
+end
+
+normalized_cards = cards.map { |card| normalize_card(card) }
+sets = normalized_cards.combination(3).to_a.select do |combination|
+  valid_set?(combination[0], combination[1], combination[2])
+end
+
+sets.each do |card|
+  puts "#{card[0]} #{card[1]} #{card[2]}"
+end
